@@ -1,21 +1,19 @@
 let url;
 let userPosition;
 let goldenHourDateTime;
-var goldenHourDisplay = document.getElementById("golden_hour_time");
+let goldenHourDisplay = document.getElementById("golden_hour_display");
 
 window.addEventListener('load', () => requestGeolocation());
 
-window.addEventListener('load', () => {
-	document.getElementById("get_result_button").addEventListener(
-		'click', 
-		() => updateGoldenHourDisplay(userPosition)
-	)
-});
+document.getElementById("get_result_button").addEventListener(
+	'click', 
+	() => updateGoldenHourDisplay(userPosition)
+);
 
 function requestGeolocation() {
 	navigator.geolocation.getCurrentPosition(
 		(position) => {
-			setUserPosition(position);
+			userPosition = position;
 		},
 		(error) => {
 			switch(error.code) {
@@ -35,11 +33,6 @@ function requestGeolocation() {
 	);
 }
 
-function setUserPosition(position) {
-	userPosition = position;
-}
-
-
 
 async function updateGoldenHourDisplay(userPosition) {
 	if (userPosition !== undefined) {
@@ -51,6 +44,8 @@ async function updateGoldenHourDisplay(userPosition) {
 		goldenHourDateTime.setMinutes(goldenHourDateTime.getMinutes() + utcOffset);
 
 		goldenHourDisplay.innerText = goldenHourDateTime.toLocaleString(navLang, {timeZone: data.results.timezone});
+
+		startGoldenHourCountdown();
 	}
 	else {
 		console.log("userPosition was undefined");
@@ -81,4 +76,32 @@ function getNavigatorLanguage() {
 	else {
 		return navigator.userLanguage || navigator.language || navigator.browserLanguage || 'en-GB';
 	}
+}
+
+function startGoldenHourCountdown() {
+
+var x = setInterval(() => {
+
+	var now = new Date().getTime();
+
+	var distance = goldenHourDateTime.getTime() - now;
+
+	var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+	var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+	document.getElementById("golden_hour_countdown").innerHTML = 
+	`
+	${Math.abs(hours) < 10 ? hours : `0${hours}`}:
+	${Math.abs(minutes) < 10 ? minutes : `0${minutes}`}:
+	${Math.abs(seconds) < 10 ? seconds : `0${seconds}`}
+	`;
+
+	if (distance < 0) {
+		clearInterval(x);
+		document.getElementById("golden_hour_countdown").innerHTML = "It's 		Golden Hour!";
+	}
+}, 1000);
+
 }
