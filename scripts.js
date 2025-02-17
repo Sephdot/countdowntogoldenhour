@@ -1,13 +1,14 @@
 let url;
 let userPosition;
-var goldenHourTime = document.getElementById("golden_hour_time");
+let goldenHourDateTime;
+var goldenHourDisplay = document.getElementById("golden_hour_time");
 
 window.addEventListener('load', () => requestGeolocation());
 
 window.addEventListener('load', () => {
 	document.getElementById("get_result_button").addEventListener(
 		'click', 
-		() => updateGoldenHourTime(userPosition)
+		() => updateGoldenHourDisplay(userPosition)
 	)
 });
 
@@ -40,25 +41,24 @@ function setUserPosition(position) {
 
 
 
-async function updateGoldenHourTime(userPosition) {
+async function updateGoldenHourDisplay(userPosition) {
 	if (userPosition !== undefined) {
-		const goldenHour = await getGoldenHour(userPosition.coords.latitude, userPosition.coords.longitude);
-		console.log(goldenHour);
-		goldenHourTime.innerText = goldenHour;
+		const data = await fetchDataByLongLat(userPosition.coords.latitude, userPosition.coords.longitude);
+		const navLang = getNavigatorLanguage();
+		const utcOffset = parseInt(data.results.utc_offset);
+
+		goldenHourDateTime = new Date(`${data.results.date}T${data.results.golden_hour}`);
+		goldenHourDateTime.setMinutes(goldenHourDateTime.getMinutes() + utcOffset);
+
+		goldenHourDisplay.innerText = goldenHourDateTime.toLocaleString(navLang, {timeZone: data.results.timezone});
 	}
 	else {
 		console.log("userPosition was undefined");
 	}
 }
 
-async function getGoldenHour(lat, long) {
-	const data = await fetchDataByLongLat(lat, long);
-
-	return data.results.golden_hour;
-}
-
 async function fetchDataByLongLat(lat, long) {
-	const url = `https://api.sunrisesunset.io/json?lat=${lat}&lng=${long}`;
+	const url = `https://api.sunrisesunset.io/json?lat=${lat}&lng=${long}&time_format=24`;
 	try {
 		const response = await fetch(url);
 		if (!response.ok) {
@@ -71,5 +71,14 @@ async function fetchDataByLongLat(lat, long) {
 	}
 	catch (error) {
 		console.error(error.message);
+	}
+}
+
+function getNavigatorLanguage() {
+	if (navigator.languages && navigator.languages.length) {
+		return navigator.languages[0];
+	}
+	else {
+		return navigator.userLanguage || navigator.language || navigator.browserLanguage || 'en-GB';
 	}
 }
