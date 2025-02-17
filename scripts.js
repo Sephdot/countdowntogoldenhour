@@ -1,4 +1,4 @@
-
+navigator.geolocation.getCurrentPosition(position => console.log(`${position.latitude}, ${position.longitude}`);
 
 
 
