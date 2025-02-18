@@ -84,11 +84,28 @@ header a {
 	position: relative;
 }
 
+
+#get_result_button {
+	display:inline-block;
+	cursor: pointer;
+	width: 40vw;
+	height: 40vw;
+	border-radius: 1000px;
+	border: none;
+	background-color: transparent;
+	outline: 1px solid red;
+	position: relative;
+	color: white;
+	font-size: inherit;
+}
+
 #golden_hour_countdown {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	font-size: 5vw;	
+	color: white;
 }
 
 footer {
@@ -108,12 +125,4 @@ footer > * {
 
 footer p, footer a {
 	color: rgb(var(--dark-color));
-}
-
-#github-anchor {
-
-}
-
-#sunrise-anchor {
-
 }
