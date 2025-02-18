@@ -7,7 +7,10 @@ window.addEventListener('load', () => requestGeolocation());
 
 document.getElementById("get_result_button").addEventListener(
 	'click', 
-	() => updateGoldenHourDisplay(userPosition)
+	() => {
+		document.getElementById("golden_hour_countdown").innerHTML = "Loading...";
+		updateGoldenHourDisplay(userPosition);
+	}
 );
 
 function requestGeolocation() {
