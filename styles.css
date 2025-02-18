@@ -10,6 +10,8 @@ p, h1, h2, h3, h4, h5, h6 {
 
 body {
 	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -40,6 +42,12 @@ header {
 
 .page-title {
 	text-align: center;
+}
+
+footer {
+	align-self: flex-end;
+	min-width: 100%;
+	margin-top: auto;
 }
 
 .github-anchor__wrapper {
