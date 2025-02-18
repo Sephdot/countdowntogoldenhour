@@ -2,6 +2,7 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+	outline: 1px solid green;
 }
 
 p, h1, h2, h3, h4, h5, h6 {
@@ -28,4 +29,28 @@ img, picture {
 input, button, textarea, select {
 	font-family: inherit;
 	font-size: inherit;
+}
+
+header {
+
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+}
+
+header > .header-item {
+	flex: 1;
+}
+
+#page-title__wrapper {
+	flex: 4;
+}
+
+.page-title {
+	text-align: center;
+}
+
+.github-anchor__wrapper {
+	text-align: right;
 }
