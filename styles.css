@@ -1,3 +1,12 @@
+:root {
+	--pri-color: 255, 193, 118;
+	--sec-color: 255, 220, 116;
+	--tri-color: 100, 111, 88;
+	--quat-color: 125, 133, 112;
+	--dark-color: 80, 75, 58;
+}
+
+
 @font-face {
 	font-family: "goldage";
 	src: url("./resources/fonts/goldage.ttf") format("truetype");
@@ -15,9 +24,9 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .page-title {
-	margin-top: 1rem;
+	margin-top: 1em;
 	font-family: "goldage", serif;
-	font-size: 3vw;
+	font-size: 3.8vw;
 }
 
 body {
@@ -51,11 +60,15 @@ input, button, textarea, select {
 }
 
 header {
-
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
+}
+
+header a {
+	color: rgb(var(--pri-color));
+	text-decoration: none;
 }
 
 .page-title {
@@ -67,7 +80,7 @@ header {
 	padding-bottom: 80%;
 	align-self: center;
 	border-radius: 1000px;
-	background-image: radial-gradient(circle, rgba(0,0,0,1), rgba(0,0,0,0) 60%);
+	background-image: radial-gradient(circle, rgba(var(--pri-color), 1), rgba(var(--pri-color), 0) 60%);
 	position: relative;
 }
 
@@ -91,6 +104,10 @@ footer > * {
 	flex: 1;
 	text-align: center;
 	font-size: 3vw;
+}
+
+footer p, footer a {
+	color: rgb(var(--dark-color));
 }
 
 #github-anchor {
