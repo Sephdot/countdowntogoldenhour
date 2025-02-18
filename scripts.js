@@ -42,10 +42,10 @@ async function updateGoldenHourDisplay(userPosition) {
 
 		goldenHourDateTime = new Date(`${data.results.date}T${data.results.golden_hour}`);
 		goldenHourDateTime.setMinutes(goldenHourDateTime.getMinutes() + utcOffset);
+		startGoldenHourCountdown();
 
 		goldenHourDisplay.innerText = goldenHourDateTime.toLocaleString(navLang, {timeZone: data.results.timezone});
-
-		startGoldenHourCountdown();
+		
 	}
 	else {
 		console.log("userPosition was undefined");
@@ -61,7 +61,6 @@ async function fetchDataByLongLat(lat, long) {
 		}
 
 		const data = await response.json();
-		console.log(data);
 		return data;
 	}
 	catch (error) {
@@ -86,22 +85,21 @@ var x = setInterval(() => {
 
 	var distance = goldenHourDateTime.getTime() - now;
 
+	if (distance < 0) {
+		clearInterval(x);
+		document.getElementById("golden_hour_countdown").innerHTML = "It's Golden Hour!";
+		return;
+	}
+
 	var days = Math.floor(distance / (1000 * 60 * 60 * 24));
 	var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
 	document.getElementById("golden_hour_countdown").innerHTML = 
-	`
-	${Math.abs(hours) < 10 ? hours : `0${hours}`}:
-	${Math.abs(minutes) < 10 ? minutes : `0${minutes}`}:
-	${Math.abs(seconds) < 10 ? seconds : `0${seconds}`}
-	`;
+	`${Math.abs(hours) >= 10 ? hours : `0${hours}`}:${Math.abs(minutes) >= 10 ? minutes : `0${minutes}`}:${Math.abs(seconds) >= 10 ? seconds : `0${seconds}`}`;
 
-	if (distance < 0) {
-		clearInterval(x);
-		document.getElementById("golden_hour_countdown").innerHTML = "It's 		Golden Hour!";
-	}
+	
 }, 1000);
 
 }
