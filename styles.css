@@ -20,13 +20,13 @@
 }
 
 p, h1, h2, h3, h4, h5, h6 {
-	line-height: calc(1rem + 0.5em);
+	line-height: 1.5em;
 }
 
 .page-title {
 	margin-top: 1em;
 	font-family: "goldage", serif;
-	font-size: 3.8vw;
+	font-size: 3rem;
 }
 
 body {
@@ -39,6 +39,9 @@ body {
 main {
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 50px 30px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -60,10 +63,8 @@ input, button, textarea, select {
 }
 
 header {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
+	text-align: center;
+	padding: 10px 10px 0;
 }
 
 header a {
@@ -76,36 +77,37 @@ header a {
 }
 
 #countdown_background {
-	width: 80%;
-	padding-bottom: 80%;
-	align-self: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 500px;
+	height: 500px;
+	outline: 1px solid blue;
 	border-radius: 1000px;
 	background-image: radial-gradient(circle, rgba(var(--pri-color), 1), rgba(var(--pri-color), 0) 60%);
-	position: relative;
 }
 
+#golden_hour_countdown {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	font-size: 3rem;	
+	color: white;
+}
 
 #get_result_button {
 	display:inline-block;
 	cursor: pointer;
-	width: 40vw;
-	height: 40vw;
+	width: 100%;
+	height: 100%;
 	border-radius: 1000px;
 	border: none;
 	background-color: transparent;
 	outline: 1px solid red;
-	position: relative;
 	color: white;
 	font-size: inherit;
-}
-
-#golden_hour_countdown {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	font-size: 5vw;	
-	color: white;
 }
 
 footer {
@@ -120,7 +122,7 @@ footer {
 footer > * {
 	flex: 1;
 	text-align: center;
-	font-size: 3vw;
+	font-size: 1rem;
 }
 
 footer p, footer a {
